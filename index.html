@@ -186,11 +186,19 @@
 
   .card-compact {
     padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   .card-compact h2 {
     font-size: 13px;
     margin-bottom: 12px;
+  }
+
+  .video-block {
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .video-wrap {
@@ -275,18 +283,20 @@
 
     <section class="card card-compact">
       <h2>Tutorial em vídeo</h2>
-      <div class="video-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/_WOGaMSmk40"
-          title="Tutorial: como configurar a assinatura de e-mail"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
+      <div class="video-block">
+        <div class="video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/_WOGaMSmk40"
+            title="Tutorial: como configurar a assinatura de e-mail"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p class="hint">
+          Não consegue ver o vídeo? <a href="https://youtu.be/_WOGaMSmk40" target="_blank" style="color:#1a5a96; font-weight:bold;">Assista diretamente no YouTube</a>.
+        </p>
       </div>
-      <p class="hint">
-        Não consegue ver o vídeo? <a href="https://youtu.be/_WOGaMSmk40" target="_blank" style="color:#1a5a96; font-weight:bold;">Assista diretamente no YouTube</a>.
-      </p>
     </section>
   </div>
 </main>
