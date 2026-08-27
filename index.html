@@ -239,7 +239,7 @@
     <label for="cargo">Cargo | Função</label>
     <input type="text" id="cargo" placeholder="Ex: Assessor | Analista de TI">
 
-    <label for="local">Local de Trabalho</label>
+    <label for="local">Lotação</label>
     <input type="text" id="local" placeholder="Ex: Presidência">
 
     <label for="telefone">Telefone</label>
@@ -327,7 +327,7 @@
   function gerarAssinaturaHtml() {
     const nomeVal = escapeHtml(nome.value.trim()) || 'Seu Nome';
     const cargoVal = escapeHtml(cargo.value.trim()) || 'Cargo | Função';
-    const localVal = escapeHtml(local.value.trim()) || 'Local de Trabalho';
+    const localVal = escapeHtml(local.value.trim()) || 'Lotação';
     const telVal = escapeHtml(telefone.value.trim());
 
     const telLinha = telVal
