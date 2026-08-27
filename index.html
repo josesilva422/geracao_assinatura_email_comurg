@@ -124,6 +124,33 @@
     border-color: var(--azul);
   }
 
+  input[type="text"].invalido {
+    border-color: #c0392b;
+    background: #fdf1f0;
+  }
+
+  .obrigatorio {
+    color: #c0392b;
+  }
+
+  .telefone2-wrap {
+    margin-top: 8px;
+  }
+
+  .link-btn {
+    display: inline-block;
+    margin-top: 8px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--azul);
+    font-size: 12.5px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
   .hint {
     font-size: 11.5px;
     color: #8a93a0;
@@ -250,18 +277,25 @@
   <section class="card">
     <h2>Seus dados</h2>
 
-    <label for="nome">Nome completo</label>
-    <input type="text" id="nome" placeholder="Ex: José Silva">
+    <label for="nome">Nome completo <span class="obrigatorio">*</span></label>
+    <input type="text" id="nome" placeholder="Ex: José Silva" required>
 
-    <label for="cargo">Cargo | Função</label>
-    <input type="text" id="cargo" placeholder="Ex: Assessor | Analista de TI">
+    <label for="cargo">Cargo | Função <span class="obrigatorio">*</span></label>
+    <input type="text" id="cargo" placeholder="Ex: Assessor | Analista de TI" required>
 
-    <label for="local">Lotação</label>
-    <input type="text" id="local" placeholder="Ex: Presidência">
+    <label for="local">Lotação <span class="obrigatorio">*</span></label>
+    <input type="text" id="local" placeholder="Ex: Presidência" required>
 
-    <label for="telefone">Telefone</label>
-    <input type="text" id="telefone" inputmode="numeric" maxlength="16" placeholder="(xx) x xxxx-xxxx">
+    <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
+    <input type="text" id="telefone" inputmode="numeric" maxlength="16" placeholder="(xx) x xxxx-xxxx" required>
+
+    <div id="telefone2-wrap" class="telefone2-wrap" hidden>
+      <input type="text" id="telefone2" inputmode="numeric" maxlength="16" placeholder="(xx) x xxxx-xxxx">
+    </div>
+    <button type="button" id="addTelefoneBtn" class="link-btn">+ Adicionar outro telefone</button>
+
     <p class="hint">Preencha os campos e a assinatura será atualizada automaticamente ao lado.</p>
+    <p class="hint"><span class="obrigatorio">*</span> Campos obrigatórios</p>
 
     <div class="actions">
       <button id="copiarCodigoBtn">&lt;/&gt; Copiar código HTML</button>
@@ -317,6 +351,9 @@
   const cargo = document.getElementById('cargo');
   const local = document.getElementById('local');
   const telefone = document.getElementById('telefone');
+  const telefone2 = document.getElementById('telefone2');
+  const telefone2Wrap = document.getElementById('telefone2-wrap');
+  const addTelefoneBtn = document.getElementById('addTelefoneBtn');
   const assinatura = document.getElementById('assinatura');
   const status = document.getElementById('status');
 
@@ -336,6 +373,16 @@
     telefone.value = formatarTelefone(telefone.value);
   });
 
+  telefone2.addEventListener('input', () => {
+    telefone2.value = formatarTelefone(telefone2.value);
+  });
+
+  addTelefoneBtn.addEventListener('click', () => {
+    telefone2Wrap.hidden = false;
+    addTelefoneBtn.hidden = true;
+    telefone2.focus();
+  });
+
   function escapeHtml(str) {
     return str
       .replace(/&/g, '&amp;')
@@ -348,9 +395,11 @@
     const cargoVal = escapeHtml(cargo.value.trim()) || 'Cargo | Função';
     const localVal = escapeHtml(local.value.trim()) || 'Lotação';
     const telVal = escapeHtml(telefone.value.trim());
+    const tel2Val = escapeHtml(telefone2.value.trim());
+    const telCompleto = tel2Val ? `${telVal} \\ ${tel2Val}` : telVal;
 
     const telLinha = telVal
-      ? `<div style="font-size:13px; color:#555555; line-height:18px;">${telVal}</div>`
+      ? `<div style="font-size:13px; color:#555555; line-height:18px;">${telCompleto}</div>`
       : '';
 
     return `<table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, Helvetica, sans-serif; color:#333333;">
@@ -398,7 +447,7 @@
     assinatura.innerHTML = gerarAssinaturaHtml();
   }
 
-  [nome, cargo, local, telefone].forEach(el => el.addEventListener('input', atualizarPreview));
+  [nome, cargo, local, telefone, telefone2].forEach(el => el.addEventListener('input', atualizarPreview));
 
   function mostrarStatus(msg, erro) {
     status.textContent = msg;
@@ -406,7 +455,29 @@
     setTimeout(() => { status.textContent = ''; }, 3500);
   }
 
+  function validarCampos() {
+    const camposObrigatorios = [nome, cargo, local, telefone];
+    let valido = true;
+    camposObrigatorios.forEach(campo => {
+      if (!campo.value.trim()) {
+        campo.classList.add('invalido');
+        valido = false;
+      } else {
+        campo.classList.remove('invalido');
+      }
+    });
+    if (!valido) {
+      mostrarStatus('❌ Preencha todos os campos obrigatórios antes de copiar.', true);
+    }
+    return valido;
+  }
+
+  [nome, cargo, local, telefone].forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('invalido'));
+  });
+
   async function copiarAssinaturaRica() {
+    if (!validarCampos()) return;
     const html = gerarAssinaturaHtml();
     const textoPlano = assinatura.innerText;
     try {
@@ -447,6 +518,7 @@
   document.getElementById('copiarBtn').addEventListener('click', copiarAssinaturaRica);
 
   document.getElementById('copiarCodigoBtn').addEventListener('click', async () => {
+    if (!validarCampos()) return;
     const html = gerarAssinaturaHtml();
     try {
       await navigator.clipboard.writeText(html);
