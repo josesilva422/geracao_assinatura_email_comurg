@@ -145,18 +145,18 @@
 
   button:active { transform: scale(0.98); }
 
-  #copiarBtn {
+  #copiarCodigoBtn {
     background: var(--azul);
     color: #fff;
   }
-  #copiarBtn:hover { background: var(--azul-escuro); }
+  #copiarCodigoBtn:hover { background: var(--azul-escuro); }
 
-  #copiarCodigoBtn {
+  #copiarBtn {
     background: #fff;
     color: var(--azul);
     border: 1px solid var(--azul);
   }
-  #copiarCodigoBtn:hover { background: #eaf1f8; }
+  #copiarBtn:hover { background: #eaf1f8; }
 
   #status {
     margin-top: 10px;
@@ -214,18 +214,21 @@
     <p class="hint">Preencha os campos e a assinatura será atualizada automaticamente ao lado.</p>
 
     <div class="actions">
-      <button id="copiarBtn">📋 Copiar assinatura</button>
       <button id="copiarCodigoBtn">&lt;/&gt; Copiar código HTML</button>
+      <button id="copiarBtn">📋 Copiar assinatura</button>
     </div>
     <div id="status"></div>
 
     <div class="instrucoes">
-      <b>Como usar:</b><br>
-      1. Preencha seus dados acima.<br>
-      2. Clique em <b>"Copiar assinatura"</b>.<br>
-      3. No seu cliente de e-mail (Gmail, Outlook, etc.), abra as configurações de <b>assinatura</b>.<br>
-      4. Clique dentro do campo de assinatura e cole (Ctrl+V).<br>
-      5. Salve as alterações.
+      <b>Como usar no Umbler (e-mail):</b><br>
+      1. Preencha seus dados acima e clique em <b>"Copiar código HTML"</b>.<br>
+      2. No Umbler, clique na <b>engrenagem</b> de configuração.<br>
+      3. Vá em <b>Assinaturas</b> → <b>Nova Assinatura</b>.<br>
+      4. Clique no <b>"+"</b> e depois no ícone <b>"&lt;&gt;"</b>.<br>
+      5. Cole o código HTML copiado (Ctrl+V).<br>
+      6. Clique novamente em <b>"&lt;&gt;"</b> para ver como ficou.<br>
+      7. Clique em <b>Salvar</b> e depois em <b>Salvar</b> novamente, na parte superior.<br>
+      Pronto! Assinatura configurada. ✅
     </div>
   </section>
 
