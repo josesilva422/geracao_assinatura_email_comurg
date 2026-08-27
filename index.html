@@ -89,6 +89,15 @@
     letter-spacing: 0.4px;
   }
 
+  .card-highlight {
+    border: 1px solid var(--azul);
+    box-shadow: 0 4px 14px rgba(26, 90, 150, 0.12);
+  }
+
+  .card-highlight h2 {
+    font-size: 17px;
+  }
+
   label {
     display: block;
     font-size: 12.5px;
@@ -185,19 +194,20 @@
   .instrucoes b { color: var(--cinza-escuro); }
 
   .card-compact {
-    padding: 14px 16px;
-    margin-top: 8px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   .card-compact h2 {
-    font-size: 12px;
-    margin-bottom: 10px;
+    font-size: 13px;
+    margin-bottom: 12px;
   }
 
   .video-block {
-    max-width: 60%;
-    margin: 0 auto;
-    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .video-wrap {
@@ -273,7 +283,7 @@
   </section>
 
   <div class="right-col">
-    <section class="card">
+    <section class="card card-highlight">
       <h2>Pré-visualização</h2>
       <div class="preview-wrap">
         <div id="assinatura"></div>
